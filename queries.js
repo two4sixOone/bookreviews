@@ -8,7 +8,8 @@ export const getReviewsQuery = `
            r.date_read,
            r.rating,
            r.blurb,
-           r.full_notes
+           r.full_notes,
+           r.id
     FROM reviews AS r
              JOIN books AS b ON r.book_id = b.id
              JOIN book_authors AS ba ON ba.book_id = b.id
