@@ -1,14 +1,34 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta
-            name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    >
-    <title>Book Reviews</title>
-</head>
-<body>
+<%- include("partials/header.ejs") %>
 <% console.log(reviews) %>
-</body>
-</html>
+<div class="container">
+    <div class="bg-dark text-secondary px-4 py-5 text-center">
+        <div class="py-5">
+            <h1 class="display-5 fw-bold text-white">Book Thoughts</h1>
+            <div class="col-lg-6 mx-auto">
+                <p class="fs-5 mb-4">What follows are my thoughts on books that I have read. What are they about? Were
+                    they worth the read? Should you read them?</p>
+            </div>
+        </div>
+    </div>
+    <% reviews.forEach(review => { %>
+    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+        <div class="row">
+            <div class="col-lg-8 px-0">
+                <h1 class="display-4 fst-italic"><%= review.title %></h1>
+                <h2 class="display-8">By <%= review.first_name %> <%= review.last_name %></h2>
+                <h3 class="display-12">Score: <%= review.rating %>/10</h3>
+                <p class="lead my-3"><%= review.blurb %></p>
+                <form action="/review" method="GET">
+                    <input type="hidden" name=reviewId value=<%= review.id %>>
+                    <button class="btn btn-secondary" type="submit">See Full Review</button>
+                </form>
+
+            </div>
+            <div class="col-auto d-none d-lg-block">
+                <img src="<%= review.image %>" alt="book cover">
+            </div>
+        </div>
+    </div>
+    <% }) %>
+</div>
+<%- include("partials/footer.ejs") %>

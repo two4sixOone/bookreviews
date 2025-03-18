@@ -1,0 +1,21 @@
+<%- include("partials/header.ejs") %>
+<div class="container">
+    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+        <div class="row">
+            <div class="col-lg-8 px-0">
+                <h1 class="display-4 fst-italic"><%= review.title %></h1>
+                <h2 class="display-8">By <%= review.first_name %> <%= review.last_name %></h2>
+                <p>Date Read: <%= review.formatted_date %></p>
+                <p>Rating: <%= review.rating %>/10</p>
+                <p>Buy this book here: <a href="<%= review.store_link %>" target="new">Store Link</a></p>
+            </div>
+            <div class="col-auto d-none d-lg-block">
+                <img src="<%= review.image %>" alt="book cover">
+            </div>
+        </div>
+        <div>
+            <p class="lead my-3"><%= review.full_notes %></p>
+        </div>
+    </div>
+</div>
+<%- include("partials/footer.ejs") %>

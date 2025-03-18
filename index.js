@@ -24,15 +24,25 @@ let reviews = [];
 
 app.get("/", async (req, res) => {
     await getReviews();
-    const reviewsWithImages = await Promise.all(reviews.map(async (review) => {
+    reviews = await Promise.all(reviews.map(async (review) => {
         const image = await retrieveBookImageByIdentifier(review.identifier, review.identifier_type);
         return {
             ...review,
             image: image,
+            formatted_date: new Date(review.date_read).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric"
+            })
         };
     }));
-    res.render("index.ejs", { reviews: reviewsWithImages });
+    res.render("index.ejs", {reviews: reviews});
 });
+
+app.get("/review", (req, res) => {
+    const selectedReview = getReviewById((req.query.reviewId));
+    res.render("review.ejs", {review: selectedReview});
+})
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
@@ -62,4 +72,10 @@ async function retrieveBookImageByIdentifier(identifier, type) {
         console.error(`Error retrieving cover image with type: ${type} and value: ${identifier}`, err.stack);
         return null;
     }
+}
+
+function getReviewById(id) {
+    return reviews.find(review => {
+        return review.id == id;
+    });
 }
