@@ -28,11 +28,11 @@ const createAuthorsTable = `
 const createBooksTable = `
     CREATE TABLE books
     (
-        id         SERIAL PRIMARY KEY,
-        title      VARCHAR(100),
-        store_link TEXT,
-        identifier TEXT UNIQUE NOT NULL,
-        identifier_type        NOT NULL
+        id              SERIAL PRIMARY KEY,
+        title           VARCHAR(100),
+        store_link      TEXT,
+        identifier      TEXT UNIQUE NOT NULL,
+        identifier_type VARCHAR(10) NOT NULL
     );
 `;
 
